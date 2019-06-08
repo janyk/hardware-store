@@ -1,17 +1,15 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { landing } from './components/landing';
-
-
+import { Provider } from "react-redux";
+import Routing from './containers/routing';
+import configureStore from "./store";
 import './App.css';
 
+const store = configureStore();
 const App: React.FC = () => {
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/" name="Login" component={landing} />
-      </Switch>
-    </Router>
+    <Provider store={store}>
+      <Routing />
+    </Provider>
   );
 }
 
