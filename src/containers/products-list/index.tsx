@@ -14,19 +14,21 @@ interface ProductListProps {
 
 const ProductList: React.FC<ProductListProps> = ({ products = [], addProduct }) => {
   return (
-    <div className="product-list">
+    <div>
       <h1>Products</h1>
-      {products.map((product, i) => (
-        <div className="message-item" key={i}>
-          <h3>{product.name}</h3>
-          <p>Price: {numberToMoney(product.price)}</p>
-          <Button
-            text={`Add ${product.name} to cart`}
-            // potentially expensive as it creates an anonymous function for every item
-            action={() => addProduct(product)}
-            />
-        </div>
-      ))}
+      <div className="product-list">
+        {products.map((product, i) => (
+          <div className="product-item" key={i}>
+            <h3>{product.name}</h3>
+            <p>Price: {numberToMoney(product.price)}</p>
+            <Button
+              text={`Add ${product.name} to cart`}
+              // potentially expensive as it creates an anonymous function for every item
+              action={() => addProduct(product)}
+              />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

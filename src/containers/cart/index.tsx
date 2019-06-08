@@ -23,19 +23,21 @@ const Cart: React.FC<ProductListProps> = ({ productsInCart = [], removeProduct }
   return (
     <div className="cart">
       <h1>Cart</h1>
-      {productsInCart.map((product, i) => (
-        <div className="message-item" key={i}>
-          <h3>{product.name}</h3>
-          <p>Price: ${product.price}</p>
-          <p>Quantity: {product.count} </p>
-          <p>Total: {numberToMoney(product.price * product.count)}</p>
-          <Button
-            text={`Remove ${product.name} from cart`}
-            // potentially expensive as it creates an anonymous function for every item
-            action={() => removeProduct(product)}
-            />
-        </div>
-      ))}
+      <div className="cart-list">
+        {productsInCart.map((product, i) => (
+          <div className="cart-item" key={i}>
+            <h3>{product.name}</h3>
+            <p>Price: ${product.price}</p>
+            <p>Quantity: {product.count} </p>
+            <p>Total: {numberToMoney(product.price * product.count)}</p>
+            <Button
+              text={`Remove ${product.name} from cart`}
+              // potentially expensive as it creates an anonymous function for every item
+              action={() => removeProduct(product)}
+              />
+          </div>
+        ))}
+      </div>
       <div className="total">
         <h2>Total: {numberToMoney(total)}</h2>
       </div>
