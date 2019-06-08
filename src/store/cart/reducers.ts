@@ -32,7 +32,13 @@ export function cartReducer(
   }
 }
 
+// future proofing, maybe overkill
 const cartSelector = ({ cart }: CartState) => cart;
+
+export const productsInCartSelector = (state: CartState): ProductInCart[] => {
+  const cart = cartSelector(state);
+  return Object.values(cart);
+}
 
 // In our data set we were told products array is left as is, so i'm assuming uniqueness on name and not adding ids
 const productSelector = ( cart: CartType, product: Product): ProductInCart | undefined => cart[product.name] || undefined;

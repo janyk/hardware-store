@@ -11,7 +11,8 @@ export interface CartState
   cart: CartType;
 }
 
-export const ADD_PRODUCT = "ADD_PRODUCTS";
+export const ADD_PRODUCT = "ADD_PRODUCT";
+export const REMOVE_PRODUCT = "REMOVE_PRODUCT";
 
 interface AddProductAction {
   type: typeof ADD_PRODUCT;

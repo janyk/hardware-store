@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from "react-redux";
 import { PersistGate } from 'redux-persist/integration/react'
-import Routing from './containers/routing';
+import DefaultLayout from './containers/default-layout';
 import configureStore from "./store";
 import './App.css';
 
@@ -11,7 +11,7 @@ const App: React.FC = () => {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <Routing />
+        <DefaultLayout />
       </PersistGate>
     </Provider>
   );

@@ -1,14 +1,14 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
-import { landing } from '../../components/landing';
 import { thunkLoadProducts } from '../../thunks/index';
+import ProductList from '../products-list'
+import Outlet from '../../components/outlet';
 
 interface AppProps {
   loadProducts: Function;
 }
 
-class Routing extends React.Component<AppProps> {
+class DefaultLayout extends React.Component<AppProps> {
 
   componentDidMount() {
     // would want to do this after store creation but maybe not using reacts lifecycle hooks?
@@ -17,11 +17,10 @@ class Routing extends React.Component<AppProps> {
 
   render() {
     return (
-      <Router>
-        <Switch>
-          <Route exact path="/" name="landing" component={landing} />
-        </Switch>
-      </Router>
+      <div className="parent">
+        <ProductList />
+        <Outlet />
+      </div>
     );
   }
 }
@@ -33,4 +32,4 @@ const mapDispatchToProps = ({
 export default connect(
   null,
   mapDispatchToProps,
-)(Routing);
+)(DefaultLayout);
