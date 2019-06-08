@@ -22,7 +22,9 @@ And it should be available on `localhost:3000`
 
 - write tests
 
-- implement a global error handler
+- implement a global error handler or a fragment
+
+- lazy loaded routes with loadable
 
 - import a style library so it looks alot better
 
