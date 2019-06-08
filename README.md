@@ -16,14 +16,20 @@ And it should be available on `localhost:3000`
 
 ### TODO: 
 
-- Initial store load, i'm not entirely sure about where i've done the inital load of products, really trying to look for a way to have initial thunks fired without using react life cycles, ideally on store creation I think.
+- Initial store load, i'm not entirely sure about where i've done the inital load of products, really trying to look for a way to have initial thunks fired without using react life cycles, ideally after store creation I think.
 
 - Type definitions, figure out if there is a better place to put my model type definitions. Store will do for now as it's currently seperated by domain.
 
 - write tests
 
-- implement a global error handler
+- lazy loading using react loadable if there were more routes
 
-- import a style library so it looks alot better
+- implement a global error handler or a fragment
+
+- lazy loaded routes with loadable
+
+- import a style lib so it looks alot better / invest in ux at all
+
+- finish microservice branch for a more interesting demo https://github.com/janyk/hardware-store/tree/feature/add-microservice
 
 - Lint!
