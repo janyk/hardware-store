@@ -1,8 +1,16 @@
-## Vet Radar, Hi :wave:
+# VR-FrontendTest-v1.1
+## Vet Radar, Hi 👋
 
 You can use Yarn to run this project, it came default with create-react-app and trying to use NPM causes some hoisting issues with the modules.
 
+Instructions below, 
+```js
+yarn
 
+yarn start
+```
+
+And it should be available on `localhost:3000`
 
 ### TODO: 
 
@@ -11,3 +19,9 @@ You can use Yarn to run this project, it came default with create-react-app and 
 - Type definitions, figure out if there is a better place to put my model type definitions. Store will do for now as it's currently seperated by domain.
 
 - write tests
+
+- implement a global error handler
+
+- import a style library so it looks alot better
+
+- Lint!
