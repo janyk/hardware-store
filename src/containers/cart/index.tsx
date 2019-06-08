@@ -21,7 +21,7 @@ const Cart: React.FC<ProductListProps> = ({ productsInCart = [], removeProduct }
   const total = (productsInCart.length > 0) ? calculateTotal(productsInCart) : 0;
 
   return (
-    <div className="product-list">
+    <div className="cart">
       <h1>Cart</h1>
       {productsInCart.map((product, i) => (
         <div className="message-item" key={i}>

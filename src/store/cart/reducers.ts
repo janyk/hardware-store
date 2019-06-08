@@ -48,22 +48,26 @@ export const productsInCartSelector = (state: CartState): ProductInCart[] => {
 // In our data set we were told products array is left as is, so i'm assuming uniqueness on name and not adding ids
 const productSelector = ( cart: CartType, product: Product): ProductInCart | undefined => cart[product.name] || undefined;
 
+/*
+  https://redux.js.org/recipes/structuring-reducers/immutable-update-patterns#correct-approach-copying-all-levels-of-nested-data
+  Keeping these reducers inline with immutable update patterns, causes them to lose their order
+  This creates a kind of janky UX
+  When I have time, potentially use Immer or ImmutableJS or another lib to enforce immutability
+  But also, add an order key in the cart to maintain order
+
+*/
+
 const addProductToCart = (state: CartState, product: Product): CartType => {
   const cart = cartSelector(state);
   let productInCart = productSelector(cart, product);
-
-  if (productInCart === undefined) {
-    productInCart = {
-      ...product,
-      count: 1,
-    }
-  } else {
-    productInCart.count += 1;
-  }
+  const count = (productInCart === undefined) ? 1 : productInCart.count + 1;
 
   return {
     ...cart,
-    [productInCart.name]: productInCart
+    [product.name]: {
+      ...product,
+      count
+    }
   }
 }
 
@@ -86,7 +90,5 @@ const removeProductFromCart = (state: CartState, product: ProductInCart): CartTy
     }
   }
 
-  return {
-    ...newCart,
-  }
+  return newCart;
 }

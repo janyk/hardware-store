@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from "react-redux";
 import { thunkLoadProducts } from '../../thunks/index';
 import ProductList from '../products-list'
+import Cart from '../cart';
 import Outlet from '../../components/outlet';
 
 interface AppProps {
@@ -20,6 +21,7 @@ class DefaultLayout extends React.Component<AppProps> {
       <div className="parent">
         <ProductList />
         <Outlet />
+        <Cart />
       </div>
     );
   }
