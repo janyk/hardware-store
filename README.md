@@ -3,6 +3,8 @@
 
 You can use Yarn to run this project, it came default with create-react-app and trying to use NPM causes some hoisting issues with the modules.
 
+It also is expecting node version 10.9.0, if you use NVM there is an .nvmrc file in the root that should have been picked up.
+
 Instructions below, 
 ```js
 yarn
