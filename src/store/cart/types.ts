@@ -19,4 +19,9 @@ interface AddProductAction {
   payload: Product;
 }
 
-export type CartActionTypes = AddProductAction;
+interface RemoveProductAction {
+  type: typeof REMOVE_PRODUCT;
+  payload: ProductInCart;
+}
+
+export type CartActionTypes = AddProductAction | RemoveProductAction;

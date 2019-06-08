@@ -36,7 +36,18 @@
 	top:1px;
 }
 
+.total {
+  border: 1px solid #18ab29;
+  background-color: white;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 
+}
+
+.total h2 {
+  padding-left: 4px;
+}
 
 .App {
   text-align: center;

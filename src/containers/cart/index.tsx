@@ -17,7 +17,9 @@ const calculateTotal = (products: ProductInCart[]) =>
   .map(({ price, count }: ProductInCart) => (price * count))
   .reduce((previous, current) => previous + current);
 
-const Cart: React.FC<ProductListProps> = ({ productsInCart, removeProduct }) => {
+const Cart: React.FC<ProductListProps> = ({ productsInCart = [], removeProduct }) => {
+  const total = (productsInCart.length > 0) ? calculateTotal(productsInCart) : 0;
+
   return (
     <div className="product-list">
       <h1>Cart</h1>
@@ -34,8 +36,8 @@ const Cart: React.FC<ProductListProps> = ({ productsInCart, removeProduct }) => 
             />
         </div>
       ))}
-      <div>
-        <h2>Total: {numberToMoney(calculateTotal(productsInCart))}</h2>
+      <div className="total">
+        <h2>Total: {numberToMoney(total)}</h2>
       </div>
     </div>
   );

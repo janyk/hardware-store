@@ -12,7 +12,7 @@ interface ProductListProps {
   addProduct: Function;
 }
 
-const ProductList: React.FC<ProductListProps> = ({ products, addProduct }) => {
+const ProductList: React.FC<ProductListProps> = ({ products = [], addProduct }) => {
   return (
     <div className="product-list">
       <h1>Products</h1>

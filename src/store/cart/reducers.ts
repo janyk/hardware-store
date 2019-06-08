@@ -4,7 +4,8 @@ import {
   CartState,
   ADD_PRODUCT,
   CartActionTypes,
-  ProductInCart
+  ProductInCart,
+  REMOVE_PRODUCT
 } from "./types";
 
 /*
@@ -21,12 +22,16 @@ export function cartReducer(
   action: CartActionTypes
 ): CartState {
   switch (action.type) {
-    case ADD_PRODUCT:
+    case ADD_PRODUCT: {
       const cart = addProductToCart(state, action.payload);
 
-      return {
-        cart
-      };
+      return { cart };
+    }
+    case REMOVE_PRODUCT: {
+      const cart = removeProductFromCart(state, action.payload);
+
+      return { cart };
+    }
     default:
       return state;
   }
@@ -59,5 +64,29 @@ const addProductToCart = (state: CartState, product: Product): CartType => {
   return {
     ...cart,
     [productInCart.name]: productInCart
+  }
+}
+
+
+const removeProductFromCart = (state: CartState, product: ProductInCart): CartType => {
+  const cart = cartSelector(state);
+  const { [product.name]: remove, ...cartWithoutProduct } = cart;
+
+  let newCart: CartType = {
+    ...cartWithoutProduct,
+  };
+
+  if (product.count > 1) {
+    newCart = {
+      ...newCart,
+      [product.name]: {
+        ...product,
+        count: product.count - 1
+      }
+    }
+  }
+
+  return {
+    ...newCart,
   }
 }
