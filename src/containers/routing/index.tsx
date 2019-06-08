@@ -5,13 +5,14 @@ import { landing } from '../../components/landing';
 import { thunkLoadProducts } from '../../thunks/index';
 
 interface AppProps {
-  thunkLoadProducts: any;
+  loadProducts: Function;
 }
 
 class Routing extends React.Component<AppProps> {
 
   componentDidMount() {
-    this.props.thunkLoadProducts();
+    // would want to do this after store creation but maybe not using reacts lifecycle hooks?
+    this.props.loadProducts();
   }
 
   render() {
@@ -25,7 +26,11 @@ class Routing extends React.Component<AppProps> {
   }
 }
 
+const mapDispatchToProps = ({
+  loadProducts: thunkLoadProducts,
+});
+
 export default connect(
   null,
-  { thunkLoadProducts }
+  mapDispatchToProps,
 )(Routing);

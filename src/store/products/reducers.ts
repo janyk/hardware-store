@@ -1,4 +1,5 @@
 import {
+  Product,
   ProductState,
   LOAD_PRODUCTS,
   ProductActionTypes
@@ -22,3 +23,6 @@ export function productsReducer(
       return state;
   }
 }
+
+
+export const productsSelector = ({ products }: ProductState): Product[] => products;
