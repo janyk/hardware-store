@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { AppState } from '../../store';
 import { Product } from '../../store/products/types';
 import { addProduct } from '../../store/cart/actions';
-import { productsSelector } from '../../store/products/reducers';
+import { productsSelector } from '../../store/products/reducer';
 import { Button } from '../../components/button';
 import numberToMoney from '../../helpers/numberToMoney';
 

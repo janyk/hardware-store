@@ -5,7 +5,7 @@ import {
   ProductActionTypes
 } from "./types";
 
-const initialState: ProductState = {
+export const initialState: ProductState = {
   products: []
 };
 

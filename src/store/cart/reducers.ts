@@ -9,9 +9,9 @@ import {
 } from "./types";
 
 /*
- Cart is a hashmap, store should ideally be normalised.
+ Cart is a hashmap as stores should usually be normalised.
  We aren't dealing with a huge amount of products, and a cart is unlikely to be that big
- But I felt it was important to demonstrate this.
+ But I felt it was important to demonstrate this. Maybe makes more sense for products store.
 */
 const initialState: CartState = {
   cart: {}
@@ -52,7 +52,7 @@ const productSelector = ( cart: CartType, product: Product): ProductInCart | und
   https://redux.js.org/recipes/structuring-reducers/immutable-update-patterns#correct-approach-copying-all-levels-of-nested-data
   Keeping these reducers inline with immutable update patterns, causes them to lose their order
   This creates a kind of janky UX
-  When I have time, potentially use Immer or ImmutableJS or another lib to enforce immutability
+  When I have time, potentially use Immer or ImmutableJS or another lib to enforce immutability as opposed to me manual spreading every level
   But also, add an order key in the cart to maintain order
 
 */

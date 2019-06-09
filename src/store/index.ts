@@ -4,7 +4,7 @@ import { persistStore, persistReducer } from 'redux-persist'
 import { composeWithDevTools } from "redux-devtools-extension";
 
 import persistConfig from './persistConfig';
-import { productsReducer } from "./products/reducers";
+import { productsReducer } from "./products/reducer";
 import { cartReducer } from "./cart/reducers";
 
 const rootReducer = combineReducers({
