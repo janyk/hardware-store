@@ -20,13 +20,11 @@ And it should be available on `localhost:3000`
 
 - Type definitions, figure out if there is a better place to put my model type definitions. Store will do for now as it's currently seperated by domain.
 
-- write tests
+- write more tests
 
 - lazy loading using react loadable if there were more routes
 
 - implement a global error handler or a fragment
-
-- lazy loaded routes with loadable
 
 - import a style lib so it looks alot better / invest in ux at all
 
