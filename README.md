@@ -22,6 +22,8 @@ And it should be available on `localhost:3000`
 
 - write more tests
 
+- bust the cart cache if there are any products in it that aren't sold anymore
+
 - lazy loading using react loadable if there were more routes
 
 - implement a global error handler or a fragment
