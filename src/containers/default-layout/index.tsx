@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from "react-redux";
 import { thunkLoadProducts } from '../../thunks/index';
-import ProductList from '../products-list'
+
+import ProductList from '../products-list/product-list-with-ftue';
 import Cart from '../cart';
 import Outlet from '../../components/outlet';
 

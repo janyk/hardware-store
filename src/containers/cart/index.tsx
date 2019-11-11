@@ -21,7 +21,7 @@ const Cart: React.FC<ProductListProps> = ({ productsInCart = [], removeProduct }
   const total = (productsInCart.length > 0) ? calculateTotal(productsInCart) : 0;
 
   return (
-    <div className="cart">
+    <div className="cart col-md-3">
       <h1>Cart</h1>
       <div className="cart-list">
         {productsInCart.map((product, i) => (
@@ -32,7 +32,6 @@ const Cart: React.FC<ProductListProps> = ({ productsInCart = [], removeProduct }
             <p>Total: {numberToMoney(product.price * product.count)}</p>
             <Button
               text={`Remove ${product.name} from cart`}
-              // potentially expensive as it creates an anonymous function for every item
               action={() => removeProduct(product)}
               />
           </div>

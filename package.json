@@ -17,10 +17,12 @@
     "react-scripts": "3.0.1",
     "redux-persist": "^5.10.0",
     "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0",
     "typescript": "3.5.1"
   },
   "devDependencies": {
     "redux-devtools-extension": "^2.13.8"
+    "redux-devtools-extension": "^2.13.8",
   },
   "scripts": {
     "start": "react-scripts start",

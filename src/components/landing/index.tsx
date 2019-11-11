@@ -7,8 +7,6 @@ const landing: React.FC = () => {
         <h1>Welcome to our hardware store!</h1>
       </header>
       <p>We have products for all your hardware needs.</p>
-      <p>Just a note, the UX on subtracting is a bit janky.</p>
-      <p>If I had more time, i'd implement robust ordering.</p>
     </div>
   );
 }

@@ -7,7 +7,11 @@ interface ButtonProps {
 
 export const Button: React.FC<ButtonProps> = ({ text, action }) => {
   return (
-    <span className="add-button" onClick={() => action()} >{text}</span>
+    <div className="input-group-append">
+      <button className="btn btn-primary" onClick={() => action()}>
+        {text}
+      </button>
+    </div>
   );
 }
 

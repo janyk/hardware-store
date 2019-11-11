@@ -4,7 +4,7 @@ const persistConfig = {
   key: 'root',
   storage,
   // as per spec, cart needs to persist between page refreshes, so it is whitelisted here.
-  whitelist: ['cart'],
+  whitelist: ['cart', 'ux'],
 }
 
 export default persistConfig;
