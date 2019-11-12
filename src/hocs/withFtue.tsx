@@ -10,10 +10,10 @@ interface withFtueProps {
 }
 
 const withFtue = (Component: ComponentType) => ({ isFtue, ...rest }: withFtueProps) => {
-    debugger;
     if (isFtue) {
         // window.alert('users first time!');
-        return <Component {...rest} />
+        return <Component {...rest}  />
+        
     }
 
     return <Component {...rest} />

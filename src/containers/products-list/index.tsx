@@ -11,7 +11,7 @@ import numberToMoney from '../../helpers/numberToMoney';
 interface ProductListProps {
   products: Product[];
   addProduct: Function;
-  setFTUEComplete: Function;
+  setFTUEComplete?: Function;
 }
 
 const ProductList: React.FC<ProductListProps> = ({ products = [], addProduct, setFTUEComplete }) => {

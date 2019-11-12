@@ -6,7 +6,11 @@ import {
   ADD_PRODUCT,
   CartActionTypes,
   ProductInCart,
-  REMOVE_PRODUCT
+  REMOVE_PRODUCT,
+  PURCHASE_CART_STARTED,
+  PURCHASE_CART_FAILED,
+  PURCHASE_CART_SUCCESS,
+  PURCHASE_CART_CLEAR
 } from "./types";
 
 /*
@@ -15,7 +19,10 @@ import {
  But I felt it was important to demonstrate this. Maybe makes more sense for products store.
 */
 const initialState: CartState = {
-  cart: {}
+  cart: {},
+  purchaseCartFailed: false,
+  purchaseCartSuccess: false,
+  purchaseCartProcessing: false,
 };
 
 export function cartReducer(
@@ -26,12 +33,31 @@ export function cartReducer(
     case ADD_PRODUCT: {
       const cart = addProductToCart(state, action.payload);
 
-      return { cart };
+      return { ...state, cart };
     }
     case REMOVE_PRODUCT: {
       const cart = removeProductFromCart(state, action.payload);
 
-      return { cart };
+      return { ...state, cart };
+    }
+
+    case PURCHASE_CART_STARTED: {
+
+      return { ...state,  purchaseCartProcessing: true, purchaseCartFailed: false, purchaseCartSuccess: false};
+    }
+
+    case PURCHASE_CART_FAILED: {
+
+      return { ...state,  purchaseCartProcessing: false, purchaseCartFailed: true, purchaseCartSuccess: false};
+    }
+    
+    case PURCHASE_CART_SUCCESS: {
+
+      return { ...state, cart: {}, purchaseCartProcessing: false, purchaseCartFailed: false, purchaseCartSuccess: true};
+    }
+    case PURCHASE_CART_CLEAR: {
+
+      return { ...initialState, cart:  state.cart };
     }
     default:
       return state;
@@ -39,12 +65,18 @@ export function cartReducer(
 }
 
 // future proofing, maybe overkill
-const cartSelector = ({ cart }: CartState) => cart;
-
+export const cartSelector = ({ cart }: CartState) => cart;
 
 export const productsInCartSelector = createSelector(
   cartSelector,
   cart => Object.values(cart)
+)
+
+export const totalSelector = createSelector(
+  productsInCartSelector,
+  (products: ProductInCart[]) => products
+    .map(({ price, count }: ProductInCart) => (price * count))
+    .reduce((previous, current) => previous + current, 0)
 )
 
 // export const productsInCartSelector = (state: CartState): ProductInCart[] => {
