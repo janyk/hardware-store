@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 import {
   Container, Col, Form,
   FormGroup, Label, Input,
@@ -18,7 +19,7 @@ interface FeedbackFormState {
   }
 }
 
-export default class FeedBackForm extends Component<FeedbackFormProps, FeedbackFormState> {
+class FeedBackForm extends Component<FeedbackFormProps, FeedbackFormState> {
   constructor(props: FeedbackFormProps) {
     super(props);
       this.state = {
@@ -107,3 +108,12 @@ export default class FeedBackForm extends Component<FeedbackFormProps, FeedbackF
     );
   }
 }
+
+const mapDispatchToProps = ({
+
+})
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(FeedBackForm);
