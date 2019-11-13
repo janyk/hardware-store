@@ -1,13 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import landing from '../landing';
+
+import FeedBackForm from '../feedback';
 
 const Outlet: React.FC = () => {
   return (
     <div className="outlet">
       <Router>
         <Switch>
-          <Route exact path="/" name="landing" component={landing} />
+          <Route exact path="/" name="landing" component={FeedBackForm} />
         </Switch>
       </Router>
     </div>
