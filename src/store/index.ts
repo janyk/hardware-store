@@ -7,11 +7,13 @@ import persistConfig from './persistConfig';
 import { uxReducer } from "./ux/reducers";
 import { productsReducer } from "./products/reducer";
 import { cartReducer } from "./cart/reducers";
+import { feedbackFormReducer } from "./feedback/reducers";
 
 const rootReducer = combineReducers({
   products: productsReducer,
   cart: cartReducer,
-  ux: uxReducer
+  ux: uxReducer,
+  feedback: feedbackFormReducer
 });
 
 

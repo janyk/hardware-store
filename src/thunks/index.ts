@@ -4,6 +4,7 @@ import { AppState } from "../store";
 import { Product } from "../store/products/types";
 import { loadProducts } from "../store/products/actions";
 import { startCartPurchase, cartPurchaseFailed, cartPurchaseSuccess } from "../store/cart/actions";
+import { startFeedbackForm, feedbackFormFailed, feedbackFormSuccess } from "../store/feedback/actions";
 import { ProductsService } from '../services/products'
 import { productsInCartSelector, cartSelector } from "../store/cart/reducers";
 import { sleep } from "../services/helpers/sleep";
@@ -54,3 +55,32 @@ export const thunkPurchaseCart = (
 
     throw new Error('API Call Failed')
   }
+
+  export const thunkFeedbackForm = ({
+    email, comments
+  }: { email: string, comments: string }
+    ): ThunkAction<void, AppState, null, Action<string>> => async (dispatch, getState) => {
+      dispatch(
+        startFeedbackForm()
+      );
+      // further reading: https://redux.js.org/api/compose
+      const getProductsInCart = compose(
+        productsInCartSelector,
+        cartSelector,
+        () => getState()
+      ) as () => Product[];
+      
+      const productsInCart = getProductsInCart();
+  
+      try {
+        const success = await fakeApi(productsInCart);
+        dispatch(
+          feedbackFormSuccess()
+        );
+      } catch (e) {
+        dispatch(
+          feedbackFormFailed()
+        )
+      }
+    };
+  

@@ -1,119 +1,100 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { connect } from "react-redux";
 import {
   Container, Col, Form,
   FormGroup, Label, Input,
-  Button, FormFeedback,
+  Button, FormFeedback, FormText
 } from 'reactstrap';
-import { Product } from '../../store/products/types';
+import { thunkFeedbackForm } from '../../thunks';
+import { AppState } from '../../store';
 
 interface FeedbackFormProps {
-  cartItems: Product[];
+  submitForm: Function;
+  loading: boolean;
+  success: boolean;
+  failed: boolean;
 }
 
 interface FeedbackFormState {
   email: string;
   comments: string;
-  validate: {
-    emailState: string;
-  }
 }
 
-class FeedBackForm extends Component<FeedbackFormProps, FeedbackFormState> {
-  constructor(props: FeedbackFormProps) {
-    super(props);
-      this.state = {
-      'email': '',
-      'comments': '',
-      validate: {
-        emailState: '',
-      },
-    }
-    this.handleChange = this.handleChange.bind(this);
-  }
 
-  validateEmail(e: any) {
-    const emailRex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    const { validate } = this.state
-    if (emailRex.test(e.target.value)) {
-      validate.emailState = 'has-success'
-    } else {
-      validate.emailState = 'has-danger'
-    }
-    this.setState({ validate })
-  }
+const initalState: FeedbackFormState = {
+  email: '',
+  comments: '',
+};
 
-  handleChange = async (event: any) => {
-    const { target } = event;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const { name } = target;
-    //@ts-ignore
-    await this.setState({
-      [ name ]: value,
-    });
-  }
+const emailRex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-  submitForm(e: any) {
-    e.preventDefault();
-    console.log(`Email: ${ this.state.email }`)
-    console.log(`Comments: ${ this.state.comments }`)
-  }
+const validateEmail = (email: string) =>  emailRex.test(email)
 
-  render() {
-    const { email, comments } = this.state;
-    return (
-      <Container className="App">
-        <h2>Feedback Form</h2>
-        <Form className="form" onSubmit={ (e) => this.submitForm(e) }>
-          <Col>
-            <FormGroup>
-              <Label>Username</Label>
-              <Input
-                type="email"
-                name="email"
-                id="exampleEmail"
-                placeholder="myemail@email.com"
-                value={ email }
-                valid={ this.state.validate.emailState === 'has-success' }
-                invalid={ this.state.validate.emailState === 'has-danger' }
-                onChange={ (e) => {
-                            this.validateEmail(e)
-                            this.handleChange(e)
-                          } }
-              />
-              <FormFeedback valid>
-                Email is correct!
-              </FormFeedback>
-              <FormFeedback>
-                Uh oh! Looks like there is an issue with your email. Please input a correct email.
-              </FormFeedback>
-            </FormGroup>
-          </Col>
-          <Col>
-            <FormGroup>
-              <Label for="exampleComments">Comments</Label>
-              <Input
-                type="textarea"
-                name="comments"
-                id="exampleComments"
-                placeholder="Your feedback is always welcome..!"
-                value={ comments }
-                onChange={ (e) => this.handleChange(e) }
+function FeedBackForm({ submitForm, loading, failed, success }: FeedbackFormProps) {
+  const [{ email, comments }, setForm] = useState(initalState)
+  
+  const isValidEmail = validateEmail(email);
+  return (
+    <Container className="App">
+      <h2>Feedback Form</h2>
+      <Form className="form" onSubmit={ (e) => {
+        e.preventDefault()
+        if (isValidEmail) { submitForm({ email, comments }) }
+      } 
+      }>
+        <Col>
+          <FormGroup>
+            <Label>Username</Label>
+            <Input
+              type="email"
+              name="email"
+              id="exampleEmail"
+              placeholder="myemail@email.com"
+              value={ email }
+              valid={!!isValidEmail}
+              invalid={!isValidEmail}
+              onChange={ (e) => setForm({ email: e.target.value, comments })}
             />
-            </FormGroup>
-          </Col>
-          <Button>Submit</Button>
-      </Form>
-      </Container>
-    );
-  }
+            <FormFeedback valid>
+              Email is correct!
+            </FormFeedback>
+            <FormFeedback>
+              Uh oh! Looks like there is an issue with your email. Please input a correct email.
+            </FormFeedback>
+          </FormGroup>
+        </Col>
+        <Col>
+          <FormGroup>
+            <Label for="exampleComments">Comments</Label>
+            <Input
+              type="textarea"
+              name="comments"
+              id="exampleComments"
+              placeholder="Your feedback is always welcome.."
+              value={ comments }
+              onChange={ (e) => setForm({ email, comments: e.target.value}) }
+          />
+          </FormGroup>
+        </Col>
+        <Button>Submit</Button>
+        <FormText>Status: {loading && 'loading'} {failed && 'failed'} {success && 'success'} </FormText>
+    </Form>
+    </Container>
+  );
+
 }
+
+const mapStateToProps = (state: AppState) => ({
+  failed: state.feedback.feedbackFormFailed,
+  loading: state.feedback.feedbackFormProcessing,
+  success: state.feedback.feedbackFormSuccess
+})
 
 const mapDispatchToProps = ({
-
+  submitForm: thunkFeedbackForm
 })
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(FeedBackForm);
