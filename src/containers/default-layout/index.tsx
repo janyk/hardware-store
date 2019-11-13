@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from "react-redux";
 import { thunkLoadProducts } from '../../thunks/index';
 import { clearCartStatus } from '../../store/cart/actions';
@@ -8,28 +8,27 @@ import ProductList from '../products-list/product-list-with-ftue';
 import Cart from '../cart';
 import Outlet from '../../components/outlet';
 
-interface AppProps {
+interface DefaultLayoutProps {
   loadProducts: Function;
   clearCartStatus: Function;
 }
 
-class DefaultLayout extends React.Component<AppProps> {
+const bootstrapApp = ({ loadProducts, clearCartStatus }: DefaultLayoutProps) => {
+  loadProducts();
+  clearCartStatus();
+}
 
-  componentDidMount() {
-    // would want to do this after store creation but maybe not using reacts lifecycle hooks?
-    this.props.loadProducts();
-    this.props.clearCartStatus();
-  }
+function DefaultLayout(props: DefaultLayoutProps) {
+  useEffect(() => bootstrapApp(props));
 
-  render() {
-    return (
-      <div className="parent">
-        <ProductList />
-        <Outlet />
-        <Cart />
-      </div>
-    );
-  }
+  return (
+    <div className="parent">
+      <ProductList />
+      <Outlet />
+      <Cart />
+    </div>
+  );
+  
 }
 
 const mapDispatchToProps = ({
@@ -41,3 +40,5 @@ export default connect(
   null,
   mapDispatchToProps,
 )(DefaultLayout);
+
+
